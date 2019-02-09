@@ -1,0 +1,33 @@
+<%= content_tag :div,
+  id: "invoice-form",
+  data: {
+    invoice: @invoice.to_json(except: [:created_at, :updated_at]),
+    line_items_attributes: @invoice.line_items.to_json(except: [:created_at, :updated_at])
+  } do %>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+    <tr v-for="(item, index) in invoice.line_items_attributes">
+      <td><input type="text" v-model="item.name" /></td>
+      <td><input type="text" v-model="item.qty" /></td>
+      <td><input type="text" v-model="item.price" /></td>
+      <td>{{item.total}}</td>
+      <td><button v-on:click="removeItem(index)">Remove</button></td>
+    </tr>
+  </table>
+
+  <button v-on:click="addItem">Add Item</button>
+
+  <p>Subtotal: {{ invoice.subtotal }} </p>
+  <p>Tax: {{ invoice.tax }} </p>
+  <p>Total: {{ invoice.total }} </p>
+
+   <button v-on:click="saveInvoice">Save Invoice</button>
+
+<% end %>
