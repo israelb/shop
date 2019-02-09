@@ -15,8 +15,8 @@
     </tr>
     <tr v-for="(item, index) in invoice.line_items_attributes">
       <td><input type="text" v-model="item.name" /></td>
-      <td><input type="text" v-model="item.qty" /></td>
-      <td><input type="text" v-model="item.price" /></td>
+      <td><input type="text" v-model="item.qty" v-on:change="calculate(index)" /></td>
+      <td><input type="text" v-model="item.price" v-on:change="calculate(index)" /></td>
       <td>{{item.total}}</td>
       <td><button v-on:click="removeItem(index)">Remove</button></td>
     </tr>
@@ -25,9 +25,9 @@
   <button v-on:click="addItem">Add Item</button>
 
   <p>Subtotal: {{ invoice.subtotal }} </p>
-  <p>Tax: {{ invoice.tax }} </p>
+  <p>Tax (5%): {{ invoice.tax }} </p>
   <p>Total: {{ invoice.total }} </p>
 
-   <button v-on:click="saveInvoice">Save Invoice</button>
+  <button v-on:click="saveInvoice">Save Invoice</button>
 
 <% end %>

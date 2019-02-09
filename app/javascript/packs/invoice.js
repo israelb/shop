@@ -16,6 +16,23 @@ document.addEventListener('turbolinks:load', () => {
     line_items_attributes.forEach(function(line_item) { line_item._destroy = null} )
     invoice.line_items_attributes = line_items_attributes
 
+    function calculate_invoice(){
+      var subtotal = 0
+      invoice.line_items_attributes.forEach( function(line_item) { 
+        subtotal += line_item["total"]
+      })
+      invoice.subtotal = subtotal
+      invoice.tax = (subtotal * 5) / 100
+      invoice.total = invoice.subtotal + invoice.tax
+
+    }
+
+    function calculate_row(index){
+      var qty = invoice.line_items_attributes[index]["qty"]
+      var price = invoice.line_items_attributes[index]["price"]
+      invoice.line_items_attributes[index]["total"] = qty * price
+    }
+
     var app = new Vue({
       el: element,
       data: function(){
@@ -33,8 +50,14 @@ document.addEventListener('turbolinks:load', () => {
           })
         },
 
+        calculate: function(index){
+          calculate_row(index)
+          calculate_invoice()
+        },
+
         removeItem: function(index){
           this.invoice.line_items_attributes.splice(index, 1)
+          calculate_invoice()
         },
 
         saveInvoice: function(){
