@@ -23,7 +23,6 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    byebug
     @invoice = Invoice.new(invoice_params)
 
     respond_to do |format|
@@ -38,7 +37,7 @@ class InvoicesController < ApplicationController
   def destroy
     @invoice.destroy
     respond_to do |format|
-      format.json { head :no_content }
+      format.html { redirect_to invoices_url }
     end
   end
 
