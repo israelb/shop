@@ -13,7 +13,9 @@ document.addEventListener('turbolinks:load', () => {
   if (element != null){
     var invoice = JSON.parse(element.dataset.invoice)
     var line_items_attributes = JSON.parse(element.dataset.lineItemsAttributes)
-    line_items_attributes.forEach(function(line_item) { line_item._destroy = null} )
+    line_items_attributes.forEach(function(line_item) {
+      line_item._destroy = null
+    })
     invoice.line_items_attributes = line_items_attributes
 
     function calculate_invoice(){

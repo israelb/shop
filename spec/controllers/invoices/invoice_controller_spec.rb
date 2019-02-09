@@ -36,10 +36,13 @@ describe InvoicesController do
   describe 'DELETE #destroy' do
     let!(:invoice) { FactoryBot.create(:invoice) }
 
-    it 'deletes the invoice' do
+    it 'deletes the invoice with the items' do
+      FactoryBot.create(:line_item, invoice: invoice)
       expect{
         delete :destroy, params: { id: invoice.to_param }
       }.to change(Invoice, :count).by(-1)
+
+      expect(LineItem.count).to eq(0)
     end
 
     it 'returns 302' do

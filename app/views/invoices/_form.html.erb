@@ -5,7 +5,7 @@
     line_items_attributes: @invoice.line_items.to_json(except: [:created_at, :updated_at])
   } do %>
 
-  <table>
+  <table v-if="invoice.line_items_attributes.length >= 1">
     <tr>
       <th>Name</th>
       <th>Qty</th>
@@ -22,7 +22,7 @@
     </tr>
   </table>
 
-  <button v-on:click="addItem">Add Item</button>
+  <button v-on:click="addItem">Add new item</button>
 
   <p>Subtotal: {{ invoice.subtotal }} </p>
   <p>Tax (5%): {{ invoice.tax }} </p>
