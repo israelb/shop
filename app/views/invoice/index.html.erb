@@ -1,3 +1,23 @@
 <h1>Invoices</h1>
 
+<table>
+  <tr>
+    <th>Invoice ID</th>
+    <th>Total</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @invoices.each do |invoice| %>
+    <tr>
+      <td><%= invoice.id %></td>
+      <td><%= number_to_currency(invoice.total) %></td>
+      <td><%= link_to 'Show', invoice %></td>
+      <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+      <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
 <%= link_to 'New invoice', new_invoice_path %>
