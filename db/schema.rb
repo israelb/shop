@@ -16,9 +16,10 @@ ActiveRecord::Schema.define(version: 2019_02_09_012537) do
   enable_extension "plpgsql"
 
   create_table "invoices", force: :cascade do |t|
-    t.decimal "subtotal"
-    t.decimal "tax"
-    t.decimal "total"
+    t.decimal "subtotal", precision: 5, scale: 2, default: "0.0"
+    t.decimal "decimal", precision: 5, scale: 2, default: "0.0"
+    t.decimal "tax", precision: 5, scale: 2, default: "0.0"
+    t.decimal "total", precision: 5, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -27,8 +28,9 @@ ActiveRecord::Schema.define(version: 2019_02_09_012537) do
     t.bigint "invoice_id"
     t.string "name"
     t.integer "qty"
-    t.decimal "price"
-    t.decimal "total"
+    t.decimal "price", precision: 5, scale: 2, default: "0.0"
+    t.decimal "decimal", precision: 5, scale: 2, default: "0.0"
+    t.decimal "total", precision: 5, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_line_items_on_invoice_id"
