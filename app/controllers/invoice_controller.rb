@@ -20,7 +20,8 @@ class InvoiceController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.json { render :show, status: :created, location: @invoice }
+        # format.json { render :show, status: :created, location: @invoice }
+        format.json { render json: @invoice, status: :created }
       else
         format.json { render json: @invoice.errors, status: :unprocesasble_entity }
       end
@@ -47,7 +48,6 @@ class InvoiceController < ApplicationController
   private
 
   def set_invoice
-    byebug
     @invoice = Invoice.find(params[:id])
   end
 
