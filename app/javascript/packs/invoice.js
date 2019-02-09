@@ -18,7 +18,7 @@ document.addEventListener('turbolinks:load', () => {
 
     function calculate_invoice(){
       var subtotal = 0
-      invoice.line_items_attributes.forEach( function(line_item) { 
+      invoice.line_items_attributes.forEach( function(line_item) {
         subtotal += line_item["total"]
       })
       invoice.subtotal = subtotal
@@ -64,6 +64,8 @@ document.addEventListener('turbolinks:load', () => {
           this.$http.post('/invoice', { invoice: this.invoice }).then(response => {
             console.log(response)
             // If save the record we can generate a PFD
+
+            Turbolinks.visit(`/invoice/${response.body.id}`)
           }, response => {
             console.log(response)
           })

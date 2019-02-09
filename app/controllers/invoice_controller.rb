@@ -6,6 +6,15 @@ class InvoiceController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.pdf do
+        pdf = InvoicePdf.new(@invoice)
+        send_data pdf.render,
+          filename: "invoice.pdf",
+          type: 'application/pdf',
+          disposition: 'inline'
+      end
+    end
   end
 
   def new
@@ -20,7 +29,6 @@ class InvoiceController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        # format.json { render :show, status: :created, location: @invoice }
         format.json { render json: @invoice, status: :created }
       else
         format.json { render json: @invoice.errors, status: :unprocesasble_entity }
