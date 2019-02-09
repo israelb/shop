@@ -1,20 +1,20 @@
 <h1>Invoices</h1>
 
 <table>
-<tr>
-  <th>Name</th>
-  <th>Qty</th>
-  <th>Price</th>
-  <th>Total</th>
-</tr>
-<% @invoice.line_items.each do |item| %>
   <tr>
-    <td><%= item.name %></td>
-    <td><%= number_to_currency item.qty %></td>
-    <td><%= number_to_currency item.price %></td>
-    <td><%= number_to_currency item.total %></td>
+    <th>Name</th>
+    <th>Qty</th>
+    <th>Price</th>
+    <th>Total</th>
   </tr>
-<% end %>
+  <% @invoice.line_items.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= number_to_currency item.qty %></td>
+      <td><%= number_to_currency item.price %></td>
+      <td><%= number_to_currency item.total %></td>
+    </tr>
+  <% end %>
 </table>
 
 <%= link_to 'Export to PDF', invoice_path(@invoice, format: 'pdf') %>
