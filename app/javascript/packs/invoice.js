@@ -24,7 +24,6 @@ document.addEventListener('turbolinks:load', () => {
       invoice.subtotal = subtotal
       invoice.tax = (subtotal * 5) / 100
       invoice.total = invoice.subtotal + invoice.tax
-
     }
 
     function calculate_row(index){
@@ -61,11 +60,8 @@ document.addEventListener('turbolinks:load', () => {
         },
 
         saveInvoice: function(){
-          this.$http.post('/invoice', { invoice: this.invoice }).then(response => {
-            console.log(response)
-            // If save the record we can generate a PFD
-
-            Turbolinks.visit(`/invoice/${response.body.id}`)
+          this.$http.post('/invoices', { invoice: this.invoice }).then(response => {
+            Turbolinks.visit(`/invoices/${response.body.id}`)
           }, response => {
             console.log(response)
           })

@@ -1,0 +1,23 @@
+<h1>Invoices</h1>
+
+<table>
+<tr>
+  <th>Name</th>
+  <th>Qty</th>
+  <th>Price</th>
+  <th>Total</th>
+</tr>
+<% @invoice.line_items.each do |item| %>
+  <tr>
+    <td><%= item.name %></td>
+    <td><%=item.qty%></td>
+    <td><%=item.price%></td>
+    <td><%=item.total%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Export to PDF', invoice_path(@invoice, format: 'pdf') %>
+
+<%= link_to 'Invoices', invoices_path %>
+

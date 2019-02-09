@@ -6,7 +6,6 @@
     <th>Total</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
   <% @invoices.each do |invoice| %>
@@ -14,7 +13,6 @@
       <td><%= invoice.id %></td>
       <td><%= number_to_currency(invoice.total) %></td>
       <td><%= link_to 'Show', invoice %></td>
-      <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
       <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>

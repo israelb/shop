@@ -1,5 +1,5 @@
-class InvoiceController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+class InvoicesController < ApplicationController
+  before_action :set_invoice, only: [:show, :destroy]
 
   def index
     @invoices = Invoice.all
@@ -7,6 +7,7 @@ class InvoiceController < ApplicationController
 
   def show
     respond_to do |format|
+      format.html
       format.pdf do
         pdf = InvoicePdf.new(@invoice)
         send_data pdf.render,
@@ -21,25 +22,13 @@ class InvoiceController < ApplicationController
     @invoice = Invoice.new
   end
 
-  def edit
-  end
-
   def create
+    byebug
     @invoice = Invoice.new(invoice_params)
 
     respond_to do |format|
       if @invoice.save
         format.json { render json: @invoice, status: :created }
-      else
-        format.json { render json: @invoice.errors, status: :unprocesasble_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @invoice.save
-        format.json { render :show, status: :ok, location: @invoice }
       else
         format.json { render json: @invoice.errors, status: :unprocesasble_entity }
       end

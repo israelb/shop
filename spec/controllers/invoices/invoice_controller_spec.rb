@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe InvoiceController do
+describe InvoicesController do
   describe 'GET #index' do
     before { get :index }
 
