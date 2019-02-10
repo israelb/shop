@@ -17,7 +17,7 @@ class InvoicePdf < Prawn::Document
   def info_invoice
     [["Subtotal:", number_to_currency(@invoice.subtotal)],
     ["Tax: (5%)", number_to_currency(@invoice.tax)],
-    ["Total: (5%)", number_to_currency(@invoice.total)]]
+    ["Total:", number_to_currency(@invoice.total)]]
 	end
 
   def line_items
