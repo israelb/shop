@@ -5,7 +5,7 @@
     line_items_attributes: @invoice.line_items.to_json(except: [:created_at, :updated_at])
   } do %>
 
-  <table v-if="invoice.line_items_attributes.length >= 1">
+  <table class="table" v-if="invoice.line_items_attributes.length >= 1">
     <tr>
       <th>Name</th>
       <th>Qty</th>
@@ -18,16 +18,17 @@
       <td><input type="text" v-model="item.qty" v-on:change="calculate(index)" /></td>
       <td><input type="text" v-model="item.price" v-on:change="calculate(index)" /></td>
       <td>{{item.total}}</td>
-      <td><button v-on:click="removeItem(index)">Remove</button></td>
+      <td><button v-on:click="removeItem(index)" class="delete is-medium">Remove</button></td>
     </tr>
   </table>
 
-  <button v-on:click="addItem">Add new item</button>
+  <button class="button is-dark" v-on:click="addItem">Add new item</button>
 
   <p>Subtotal: {{ invoice.subtotal }} </p>
   <p>Tax (5%): {{ invoice.tax }} </p>
   <p>Total: {{ invoice.total }} </p>
 
-  <button v-on:click="saveInvoice">Save Invoice</button>
+  <button class="button is-primary" v-on:click="saveInvoice">Save Invoice</button>
+  <%= link_to 'Cancel', invoices_path, class: "button is-light" %>
 
 <% end %>

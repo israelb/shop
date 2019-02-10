@@ -1,21 +1,25 @@
-<h1>Invoices</h1>
+<h1 class="title">Invoices</h1>
 
-<table>
-  <tr>
-    <th>Invoice ID</th>
-    <th>Total</th>
-    <th></th>
-    <th></th>
-  </tr>
 
-  <% @invoices.each do |invoice| %>
+<% unless @invoices.empty? %>
+  <table class="table">
     <tr>
-      <td><%= invoice.id %></td>
-      <td><%= number_to_currency(invoice.total) %></td>
-      <td><%= link_to 'Show', invoice %></td>
-      <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <th>Invoice ID</th>
+      <th>Total</th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
-</table>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.id %></td>
+        <td><%= number_to_currency(invoice.total) %></td>
+        <td><%= link_to 'Show', invoice %></td>
+        <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>No invoices yet</p>
+<% end %>
 
-<%= link_to 'New invoice', new_invoice_path %>
+<%= link_to 'New invoice', new_invoice_path, class: "button is-light" %>
