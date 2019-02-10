@@ -80,7 +80,10 @@ document.addEventListener('turbolinks:load', () => {
         isEmpty: function(item){
           if (item.name.length < 1) { return true }
         }
-      }
+      },
+      beforeMount(){
+        this.addItem()
+      },
 
     })
   }
