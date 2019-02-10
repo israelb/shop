@@ -5,7 +5,12 @@
     line_items_attributes: @invoice.line_items.to_json(except: [:created_at, :updated_at])
   } do %>
 
-  <table class="table" v-if="invoice.line_items_attributes.length >= 1">
+  <div class="notification" v-if="errors">
+    <button class="delete"></button>
+    Something is wrong!
+  </div>
+
+  <table class="table" v-if="hasItems()">
     <tr>
       <th>Name</th>
       <th>Qty</th>
@@ -14,21 +19,26 @@
       <th></th>
     </tr>
     <tr v-for="(item, index) in invoice.line_items_attributes">
-      <td><input type="text" v-model="item.name" /></td>
-      <td><input type="text" v-model="item.qty" v-on:change="calculate(index)" /></td>
-      <td><input type="text" v-model="item.price" v-on:change="calculate(index)" /></td>
+      <td>
+        <input class="input" v-bind:class="{ 'is-primary': isEmpty(item) }" type="text" v-model="item.name" />
+        <div class="error" v-if="isEmpty(item)">
+          Write a name please.
+        </div>
+      </td>
+      <td><input class="input" type="text" v-model="item.qty" v-on:change="calculate(index)" /></td>
+      <td><input class="input" type="text" v-model="item.price" v-on:change="calculate(index)" /></td>
       <td>{{item.total}}</td>
       <td><button v-on:click="removeItem(index)" class="delete is-medium">Remove</button></td>
     </tr>
   </table>
 
-  <button class="button is-dark" v-on:click="addItem">Add new item</button>
+  <button class="button is-primary" v-on:click="addItem">Add item</button>
 
   <p>Subtotal: {{ invoice.subtotal }} </p>
   <p>Tax (5%): {{ invoice.tax }} </p>
   <p>Total: {{ invoice.total }} </p>
 
-  <button class="button is-primary" v-on:click="saveInvoice">Save Invoice</button>
+  <button class="button is-dark" v-on:click="saveInvoice" v-if="hasItems()">Save Invoice</button>
   <%= link_to 'Cancel', invoices_path, class: "button is-light" %>
 
 <% end %>

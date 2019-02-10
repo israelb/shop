@@ -37,7 +37,10 @@ document.addEventListener('turbolinks:load', () => {
     var app = new Vue({
       el: element,
       data: function(){
-        return { invoice: invoice }
+        return {
+          invoice: invoice,
+          errors: false
+        }
       },
       methods: {
         addItem: function(){
@@ -66,9 +69,19 @@ document.addEventListener('turbolinks:load', () => {
             Turbolinks.visit(`/invoices/${response.body.id}`)
           }, response => {
             console.log(response)
+            this.errors = true
           })
+        },
+
+        hasItems: function(){
+          if (this.invoice.line_items_attributes.length >= 1){ return true }
+        },
+
+        isEmpty: function(item){
+          if (item.name.length < 1) { return true }
         }
       }
+
     })
   }
 })

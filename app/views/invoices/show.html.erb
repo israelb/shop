@@ -1,6 +1,6 @@
-<h1><%= "Invoice \##{@invoice.id}"%></h1>
+<h1 class="title"><%= "Invoice \##{@invoice.id}"%></h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Name</th>
     <th>Qty</th>
@@ -16,8 +16,11 @@
     </tr>
   <% end %>
 </table>
+<p>Subtotal: <%= @invoice.subtotal %> </p>
+<p>Tax (5%): <%= @invoice.tax %> </p>
+<p>Total: <%= @invoice.total %> </p>
+<br>
+<%= link_to 'Export to PDF', invoice_path(@invoice, format: 'pdf'), class: "button is-dark" %>
 
-<%= link_to 'Export to PDF', invoice_path(@invoice, format: 'pdf') %>
-
-<%= link_to 'Invoices', invoices_path %>
+<%= link_to 'Invoices', invoices_path, class: "button is-light" %>
 
